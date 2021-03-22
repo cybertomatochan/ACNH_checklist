@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>ACNH Museum Checklist</title>
+</head>
+
+<body>
+    <header>
+    <h1>動物森友會  博物館收藏清單</h1>
+    </header>
+    <!-- 切換品項 -->
+
+    <div id="app">    
+    <nav>
+        <input placeholder="我想找..." type="text" v-model.trim="search">
+    </nav>
+        <div v-if="filterItem == 0" class="row bg-secondary" >
+
+            <div  class="col-md-3 col-6 d-flex justify-content-center my-3" v-for="item in artData" :key="item.id">
+                    <div  class="card border-0" style="width: 18rem;">
+                        <img :src='item.image_uri' class="card-img-top bg-info" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{item["name"]["name-TWzh"]}}</h5>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div v-if="filterItem != 0" class="row bg-secondary" >
+
+            <div  class="col-md-3 col-6 d-flex justify-content-center my-3" v-for="item in filterItem" :key="item.id">
+                    <div  class="card border-0" style="width: 18rem;">
+                        <img :src='item.image_uri' class="card-img-top bg-info" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{item["name"]["name-TWzh"]}}</h5>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+    </div>
+    <footer></footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+    <script type="module" src="art.js"></script>
+</body>
+
+</html>
