@@ -1,0 +1,19 @@
+.owl {
+    color: $sec-color;
+    font-size: 30px;
+    line-height: 30px;
+
+    &:hover {
+        cursor: pointer;
+        color: $sec-color;
+        font-size: 36px;
+    }
+}
+
+.donated {
+    color: darken($main-color,30%);
+
+    &:hover {
+        color: darken($main-color,30%);
+    }
+}

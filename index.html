@@ -7,45 +7,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/all.css">
     <title>ACNH Museum Checklist</title>
 </head>
 
 <body>
-    <header>
-    <h1>動物森友會  博物館收藏清單</h1>
+    <header class="text-center py-5 mb-3 rounded">
+        <h1>動物森友會 博物館收藏清單</h1>
     </header>
     <!-- 切換品項 -->
 
-    <div id="app">    
-    <nav>
-        <input placeholder="我想找..." type="text" v-model.trim="search">
-    </nav>
-        <div v-if="filterItem == 0" class="row bg-secondary" >
+    <div id="app">
+        <div class="container">
+            <nav>
+                <!-- 搜尋功能 -->
+                <div class="row d-flex justify-content-center">
+                    <input class="my-5 px-3" placeholder="我想找..." type="text" v-model.trim="search">
+                </div>
+            </nav>
 
-            <div  class="col-md-3 col-6 d-flex justify-content-center my-3" v-for="item in artData" :key="item.id">
-                    <div  class="card border-0" style="width: 18rem;">
-                        <img :src='item.image_uri' class="card-img-top bg-info" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{item["name"]["name-TWzh"]}}</h5>
+            <div v-if="filterItem == 0" class="row">
+                <div class="col-md-4 col-6 d-flex justify-content-center my-3" v-for="item in artData" :key="item.id">
+                    <div class="card border-0">
+                        <img :src='item.image_uri' class="card-img-top">
+                        <div class="card-body bg-light">
+                            <!-- <div v-if="item.hasFake" class="fake pl-3 h5 text-danger"><i class="fas fa-exclamation-triangle"></i></div> -->
+                            <div class="row align-middle">
+                                <div class="col-7">
+                                    <p>{{item["name"]["name-TWzh"]}}</p>
+                                </div>
+                                <div class="col-5">
+                                    <a href="#" @click.prevent="donate(item.id)" class="owl "
+                                        :class="{donated: item.donated }"><i class="fas fa-landmark"></i></a>
+                                        <i v-if="item.hasFake" class="fas fa-exclamation-triangle text-danger text-left ml-4"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
-        <div v-if="filterItem != 0" class="row bg-secondary" >
-
-            <div  class="col-md-3 col-6 d-flex justify-content-center my-3" v-for="item in filterItem" :key="item.id">
-                    <div  class="card border-0" style="width: 18rem;">
-                        <img :src='item.image_uri' class="card-img-top bg-info" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{item["name"]["name-TWzh"]}}</h5>
+            <div v-if="filterItem != 0" class="row">
+                <div class="col-md-4 col-6 d-flex justify-content-center my-3" v-for="item in filterItem"
+                    :key="item.id">
+                    <div class="card border-0">
+                        <img :src='item.image_uri' class="card-img-top">
+                        <div class="card-body bg-light">
+                            <!-- <div v-if="item.hasFake" class="fake pl-3 h5 text-danger"><i class="fas fa-exclamation-triangle"></i></div> -->
+                            <div class="row align-middle">
+                                <div class="col-7">
+                                    <p>{{item["name"]["name-TWzh"]}}</p>
+                                </div>
+                                <div class="col-5">
+                                    <a href="#" @click.prevent="donate(item.id)" class="owl "
+                                        :class="{donated: item.donated }"><i class="fas fa-landmark"></i></a>
+                                        <i v-if="item.hasFake" class="fas fa-exclamation-triangle text-danger text-left ml-4"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
+
 
 
     </div>
-    <footer></footer>
+    <footer class=" bg-light mt-5 pt-3 pb-1 ">
+        <div class="container text-center d-flex justify-content-between">
+            <div>
+                <h3>Thanks to <a href="http://acnhapi.com/">ACNH API</a></h3>
+            </div>
+            <div>
+                <h3>Contact Us<a href="https://github.com/cybertomatochan" class="ml-3"><i class="fab fa-github"></i></a></h3>
+            </div>
+        </div>
+    </footer>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
     <script type="module" src="art.js"></script>

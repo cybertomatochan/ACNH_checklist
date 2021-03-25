@@ -1,0 +1,14 @@
+//顏色設定
+
+$main-color:#87caa2;
+$sec-color:#9ad4e4;
+$light-bg-color:#f5f5ef;
+$text-color:#483c23;
+
+
+.bg-sec{
+    background-color:$sec-color;
+}
+.bg-light{ 
+    background-color: $light-bg-color;
+}
