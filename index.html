@@ -25,46 +25,62 @@
         <div class="container">
             <nav>
                 <!-- 搜尋功能 -->
-                <div class="row d-flex justify-content-center">
-                    <input class="my-5 px-3" placeholder="我想找..." type="text" v-model.trim="search">
+                <div class="d-flex justify-content-center">
+                        <input class="my-5 px-3" placeholder="我想找..." type="text" v-model.trim="search">  
                 </div>
             </nav>
 
-            <div v-if="filterItem == 0" class="row">
-                <div class="col-md-4 col-6 d-flex justify-content-center my-3" v-for="item in artData" :key="item.id">
+            <div v-if="filterItem == 0" class="row d-flex justify-content-center">
+                <div class="col-md-4 col-9  my-3" v-for="item in artData" :key="item.id">
                     <div class="card border-0">
                         <img :src='item.image_uri' class="card-img-top">
                         <div class="card-body bg-light">
                             <!-- <div v-if="item.hasFake" class="fake pl-3 h5 text-danger"><i class="fas fa-exclamation-triangle"></i></div> -->
-                            <div class="row align-middle">
-                                <div class="col-7">
+                            <div class="row text-center">
+                                <div class="col-md-7">
                                     <p>{{item["name"]["name-TWzh"]}}</p>
                                 </div>
-                                <div class="col-5">
-                                    <a href="#" @click.prevent="donate(item.id)" class="owl "
-                                        :class="{donated: item.donated }"><i class="fas fa-landmark"></i></a>
-                                        <i v-if="item.hasFake" class="fas fa-exclamation-triangle text-danger text-left ml-4"></i>
+
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <i v-if="item.hasFake"
+                                            class="fas fa-exclamation-triangle text-danger"></i>
+                                        </div>
+                                        <div class="col-6"><a href="#" @click.prevent="donate(item.id)" class="owl "
+                                                :class="{donated: item.donated }"><i class="fas fa-landmark"></i></a>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div v-if="filterItem != 0" class="row">
-                <div class="col-md-4 col-6 d-flex justify-content-center my-3" v-for="item in filterItem"
+            <div v-if="filterItem != 0" class="row d-flex justify-content-center">
+                <div class="col-md-4 col-9 my-3" v-for="item in filterItem"
                     :key="item.id">
                     <div class="card border-0">
                         <img :src='item.image_uri' class="card-img-top">
                         <div class="card-body bg-light">
                             <!-- <div v-if="item.hasFake" class="fake pl-3 h5 text-danger"><i class="fas fa-exclamation-triangle"></i></div> -->
-                            <div class="row align-middle">
-                                <div class="col-7">
+                            <div class="row text-center">
+                                <div class="col-md-7">
                                     <p>{{item["name"]["name-TWzh"]}}</p>
                                 </div>
-                                <div class="col-5">
-                                    <a href="#" @click.prevent="donate(item.id)" class="owl "
-                                        :class="{donated: item.donated }"><i class="fas fa-landmark"></i></a>
-                                        <i v-if="item.hasFake" class="fas fa-exclamation-triangle text-danger text-left ml-4"></i>
+
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <i v-if="item.hasFake"
+                                            class="fas fa-exclamation-triangle text-danger"></i>
+                                        </div>
+                                        <div class="col-6"><a href="#" @click.prevent="donate(item.id)" class="owl "
+                                                :class="{donated: item.donated }"><i class="fas fa-landmark"></i></a>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +98,8 @@
                 <h3>Thanks to <a href="http://acnhapi.com/">ACNH API</a></h3>
             </div>
             <div>
-                <h3>Contact Us<a href="https://github.com/cybertomatochan" class="ml-3"><i class="fab fa-github"></i></a></h3>
+                <h3>Contact Us<a href="https://github.com/cybertomatochan" class="ml-3"><i
+                            class="fab fa-github"></i></a></h3>
             </div>
         </div>
     </footer>
