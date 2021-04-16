@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/all.css">
+    <title>ACNH Museum Checklist</title>
+</head>
+
+<body>
+    <header class="text-center py-5 mb-3">
+        <h1>動物森友會<br>博物館收藏清單</h1>
+    </header>
+    <!-- 切換品項 -->
+
+    <div id="app">
+        <div class="container">
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">美術品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">昆蟲</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">魚類</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sea.html">海洋生物</a>
+                    </li>
+                </ul>
+            </nav>
+            <main role='main'>
+                <!-- 搜尋bar功能 -->
+                <div class="d-flex justify-content-center">
+                    <input class="my-5 px-3" placeholder="我想找..." type="text" v-model.trim="search">
+                </div>
+                <!-- 月份功能 -->
+                <div class="month d-flex justify-content-between">
+                        <input type="radio" value="1" id="jan" v-model="month">
+                        <label class="btn bg-main" for="jan">一月</label>
+
+                        <input type="radio" value="2" id="feb" v-model="month">
+                        <label class="btn bg-main" for="feb">二月</label>
+
+                        <input type="radio" value="3" id="mar" v-model="month">
+                        <label class="btn bg-main" for="mar">三月</label>
+
+                        <input type="radio" value="4" id="apr" v-model="month">
+                        <label class="btn bg-main" for="apr">四月</label>
+
+                        <input type="radio" value="5" id="may" v-model="month">
+                        <label class="btn bg-main" for="may">五月</label>
+
+                        <input type="radio" value="6" id="jun" v-model="month">
+                        <label class="btn bg-main" for="jun">六月</label>
+
+                        <input type="radio" value="7" id="jul" v-model="month">
+                        <label class="btn bg-main" for="jul">七月</label>
+
+                        <input type="radio" value="8" id="aug" v-model="month">
+                        <label class="btn bg-main" for="aug">八月</label>
+
+                        <input type="radio" value="9" id="sep" v-model="month">
+                        <label class="btn bg-main" for="sep">九月</label>
+
+                        <input type="radio" value="10" id="oct" v-model="month">
+                        <label class="btn bg-main" for="oct">十月</label>
+
+                        <input type="radio" value="11" id="nov" v-model="month">
+                        <label class="btn bg-main" for="nov">十一月</label>
+
+                        <input type="radio" value="12" id="dec" v-model="month">
+                        <label class="btn bg-main" for="dec">十二月</label>                   
+                </div>
+                <!-- 要怎麼給點選的月份安上active 狀態 
+                把月份用 Vue 的來呈現會比較好嗎? -->
+
+
+                <!-- 初始狀態 -->
+                <div v-if="filterItem == 0" class="row">
+                    <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in seaData" :key="item.id">
+                        <div class="card border-0">
+                            <img :data-src='item.image_uri' class="card-img-top lazyload"
+                                :class="{'bg-donated': item.donated }">
+                            <div class="card-body bg-light p-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-center">
+                                            <h5>{{item["name"]["name-TWzh"]}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-6  text-center">
+                                        <p v-if='!item["availability"]["isAllYear"]' class="h6">
+                                            <!-- 出現月份 -->
+                                            {{item["availability"]["month-northern"]}}月
+                                        </p>
+                                        <p v-else class="h6">全年皆有</p>
+                                    </div>
+                                    <div class="col-6  text-center">
+                                        <p v-if='!item["availability"]["isAllDay"]' class="h6">
+                                            <!-- 出現時間 -->
+                                            {{item["availability"]["time-array"][0]}}~{{item["availability"]["time-array"][item["availability"]["time-array"].length-1]}}
+                                        </p>
+                                        <p v-else class="h6">全天皆有</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6 text-center h6">
+                                        <p>售價 ${{item["price"]}}</p>
+                                    </div>
+                                    <div class="col-6 text-center"><a href="#" @click.prevent="donate(item.id)"
+                                            class="owl" :class="{'text-donated': item.donated}"><i
+                                                class="fas fa-landmark"></i></a>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="filterItem != 0" class="row">
+                    <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in filterItem"
+                        :key="item.id">
+                        <div class="card border-0">
+                            <img :data-src='item.image_uri' class="card-img-top lazyload"
+                                :class="{'bg-donated': item.donated }">
+                            <div class="card-body bg-light p-3">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex justify-content-center">
+                                            <h5>{{item["name"]["name-TWzh"]}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-6  text-center">
+                                        <p v-if='!item["availability"]["isAllYear"]' class="h6">
+                                            <!-- 出現月份 -->
+                                            {{item["availability"]["month-northern"]}}月
+                                        </p>
+                                        <p v-else class="h6">全年皆有</p>
+                                    </div>
+                                    <div class="col-6  text-center">
+                                        <p v-if='!item["availability"]["isAllDay"]' class="h6">
+                                            <!-- 出現時間 -->
+                                            {{item["availability"]["time-array"][0]}}~{{item["availability"]["time-array"][item["availability"]["time-array"].length-1]}}
+                                        </p>
+                                        <p v-else class="h6">全天皆有</p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6 text-center h6">
+                                        <p>售價 ${{item["price"]}}</p>
+                                    </div>
+                                    <div class="col-6 text-center"><a href="#" @click.prevent="donate(item.id)"
+                                            class="owl" :class="{'text-donated': item.donated}"><i
+                                                class="fas fa-landmark"></i></a>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+
+    </div>
+    </div>
+    <footer class=" bg-light mt-5 pt-3 pb-1 ">
+        <div class="container text-center d-flex justify-content-between">
+            <div>
+                <h3>Thanks to <a href="http://acnhapi.com/">ACNH API</a></h3>
+            </div>
+            <div>
+                <h3>Contact Us<a href="https://github.com/cybertomatochan" class="ml-3"><i
+                            class="fab fa-github"></i></a></h3>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+    <script type="module" src="sea.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+</body>
+
+</html>

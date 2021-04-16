@@ -35,7 +35,7 @@
                         <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">魚類</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">海洋生物</a>
+                        <a class="nav-link" href="sea.html">海洋生物</a>
                     </li>
                 </ul>
             </nav>
@@ -46,6 +46,7 @@
                 </div>
                 <div v-if="filterItem == 0" class="row">
                     <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in artData" :key="item.id">
+                        <!-- 卡片開頭 -->
                         <div class="card border-0">
                             <img :data-src='item.image_uri' class="card-img-top lazyload"
                                 :class="{'bg-donated': item.donated }">

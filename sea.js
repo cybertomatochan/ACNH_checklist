@@ -1,5 +1,5 @@
 import {
-    artData
+    seaData
 } from "./api.js";
 
 Vue.config.devtools = true;
@@ -7,10 +7,11 @@ Vue.config.devtools = true;
 var app = new Vue({
     el: '#app',
     data: {
-        artData: [],
+        seaData: [],
         filterItem: [],
-        artDonated: [],
+        seaDonated: [],
         search: '',
+        month:'',
     },
 
     //搜尋監聽
@@ -18,63 +19,64 @@ var app = new Vue({
         search: function () {
             this.searchItem();
         },
-        artDonated: function(){
-            let donatedStr =JSON.stringify(this.artDonated);
-            localStorage.setItem('donatedList',donatedStr);
+        //seaDonated 一變動 就推資料進去 LS
+        seaDonated: function(){
+            let donatedStr =JSON.stringify(this.seaDonated);
+            localStorage.setItem('seaDonatedList',donatedStr);
         }
     },
 
     methods: {
         searchItem() {
             const vm = this;
-            //搜尋功能  美術品名字比對輸入文字 回傳符合項目
-            vm.filterItem = vm.artData.filter(item => {
+            //搜尋功能  名字比對輸入文字 回傳符合項目
+            vm.filterItem = vm.seaData.filter(item => {
                 if (item['name']["name-TWzh"].match(vm.search)) {
                     return item
                 };
             });
         },
 
-        //紀錄捐贈與否
+        // //紀錄捐贈與否
         donate(id) {
             let vm = this;
-            let newIndex =vm.artData.findIndex((item)=>{
+            let newIndex =vm.seaData.findIndex((item)=>{
                 return item.id == id
             })
-            vm.artData[newIndex].donated = !vm.artData[newIndex].donated;
-            vm.artDonated=[];
-            vm.artData.forEach(
+            vm.seaData[newIndex].donated = !vm.seaData[newIndex].donated;
+            vm.seaDonated=[];
+            vm.seaData.forEach(
                 (item,newIndex) =>{ 
                 if(item.donated){
-                    vm.artDonated.push(newIndex)
+                    vm.seaDonated.push(newIndex)
                 }
             })
         },
 
         getDonated(){
             let vm = this;
-            vm.artDonated =JSON.parse(localStorage.getItem('donatedList'));
+            vm.seaDonated =JSON.parse(localStorage.getItem('seaDonatedList'));
             //更新已捐贈物品
-            vm.artDonated.forEach(
-                item => vm.artData[item].donated = true
+            vm.seaDonated.forEach(
+                item => vm.seaData[item].donated = true
             );
         },
 
-        getArtData() {
-            artData()
+        getSeaData() {
+            seaData()
                 .then(res => {
                     console.log(res.data);
                     let vm = this;
 
                     //從物件取出陣列
                     let key = Object.keys(res.data);
-                    vm.artData = key.map(
+                    vm.seaData = key.map(
                         item => res.data[item]
                     );
 
                     //新增 捐贈確認項目
                     //得用強制寫入使 donated 有響應功能
-                    vm.artData.forEach(
+                    vm.seaData.forEach(
                         item => this.$set(item, 'donated', false)
                     );
 
@@ -87,7 +89,7 @@ var app = new Vue({
     },
 
     created() {
-        this.getArtData();
+        this.getSeaData();
     },
 
 

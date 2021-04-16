@@ -6,3 +6,4 @@ const ACNHAPI = axios.create({
 
 //art
 export const artData = data =>ACNHAPI.get('/art',data);
+export const seaData = data =>ACNHAPI.get('/sea',data);
