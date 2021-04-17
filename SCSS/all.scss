@@ -4,9 +4,8 @@
 body {
     font-family: 'Noto Sans JP', sans-serif; //"Microsoft JhengHei",Arial, Helvetica, sans-serif;
     min-height: 100vh;
-    background-color: $light-bg-color;
+    background-color: $bg-light-color;
     color: $text-color;
-
     a {
         color: inherit;
 
@@ -18,7 +17,7 @@ body {
 
     header {
         background-color: $text-color;
-        color: $light-bg-color;
+        color: $bg-light-color;
 
         h1 {
             font-size: 50px;
@@ -27,49 +26,61 @@ body {
         }
     }
 
-    input {
-        width: 80%;
-        height: 50px;
-        font-size: 30px;
-        border: 0;
-        border-radius: 5px;
-        background-color: rgba(255, 255, 255, 0.7);
-    }
-
-    .month {
-        input {
-            display: none;
+    .sticky-top {
+        input{
+            width: 70%;
+            height: 50px;
+            font-size: 30px;
+            border: 0;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        .btn-search:hover{
+            background-color: darken($bg-light-color, 30%);
         }
 
-        .btn {
-            &:hover, &:active{
-                background-color: darken($main-color, 30%);
+        .month {
+            input {
+                display: none;
             }
-        }
 
+            .btn {
+
+                &:hover,
+                &:active {
+                    background-color: darken($main-color, 30%);
+                }
+            }
+
+        }
     }
+
+
+
+
 
     .card {
         width: 300px;
-        height: 400px;
-        background-color: $sec-color;
+        height: 350px;
         border-radius: 10px;
         box-shadow: 10px 5px 5px rgba(73, 73, 73, 0.3);
 
+        .card-img-top {
+            height: 50%;
+        }
+
         img {
-            height: 60%;
             border-radius: 10px 10px 0 0;
         }
 
         .card-body {
-            height: 30%;
             border-radius: 0 0 10px 10px;
             font-size: 20px;
         }
     }
 }
 
-//以捐贈的CSS
+//已捐贈的CSS
 .bg-donated {
     background-color: darken($main-color, 30%);
 }

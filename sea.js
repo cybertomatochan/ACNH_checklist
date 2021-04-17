@@ -16,9 +16,10 @@ var app = new Vue({
 
     //搜尋監聽
     watch: {
-        search: function () {
-            this.searchItem();
-        },
+        // search: function () {
+        //     this.searchItem();
+            
+        // },
         //seaDonated 一變動 就推資料進去 LS
         seaDonated: function(){
             let donatedStr =JSON.stringify(this.seaDonated);
@@ -35,6 +36,9 @@ var app = new Vue({
                     return item
                 };
             });
+            //搜尋後回到置頂
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
 
         // //紀錄捐贈與否

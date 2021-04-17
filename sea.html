@@ -23,76 +23,85 @@
 
     <div id="app">
         <div class="container">
-            <nav>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">美術品</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">昆蟲</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">魚類</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sea.html">海洋生物</a>
-                    </li>
-                </ul>
-            </nav>
-            <main role='main'>
+            <!-- sticky-top 的背景色要寫在HTML 不知道有沒有別的辦法 -->
+            <div class="sticky-top" style="background-color:#f5f5ef;">
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">美術品</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">昆蟲</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">魚類</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sea.html">海洋生物</a>
+                        </li>
+                    </ul>
+                </nav>
                 <!-- 搜尋bar功能 -->
-                <div class="d-flex justify-content-center">
-                    <input class="my-5 px-3" placeholder="我想找..." type="text" v-model.trim="search">
+                <div class="d-flex justify-content-center  my-5 px-3">
+                    <input placeholder="我想找..." type="text" v-model.trim="search" @keyup.enter.prevent="searchItem()">
+                    <div class="input-group-append">
+                        <button class="btn btn-search" type="button" @click.prevent="searchItem()"><i class="fas fa-2x fa-search"></i></button>
+                        <button class="btn btn-search" type="button"><i class="far fa-2x fa-times-circle"></i></button>
+                    </div>
                 </div>
                 <!-- 月份功能 -->
                 <div class="month d-flex justify-content-between">
-                        <input type="radio" value="1" id="jan" v-model="month">
-                        <label class="btn bg-main" for="jan">一月</label>
+                    <input type="radio" value="1" id="jan" v-model="month">
+                    <label class="btn bg-main" for="jan">一月</label>
 
-                        <input type="radio" value="2" id="feb" v-model="month">
-                        <label class="btn bg-main" for="feb">二月</label>
+                    <input type="radio" value="2" id="feb" v-model="month">
+                    <label class="btn bg-main" for="feb">二月</label>
 
-                        <input type="radio" value="3" id="mar" v-model="month">
-                        <label class="btn bg-main" for="mar">三月</label>
+                    <input type="radio" value="3" id="mar" v-model="month">
+                    <label class="btn bg-main" for="mar">三月</label>
 
-                        <input type="radio" value="4" id="apr" v-model="month">
-                        <label class="btn bg-main" for="apr">四月</label>
+                    <input type="radio" value="4" id="apr" v-model="month">
+                    <label class="btn bg-main" for="apr">四月</label>
 
-                        <input type="radio" value="5" id="may" v-model="month">
-                        <label class="btn bg-main" for="may">五月</label>
+                    <input type="radio" value="5" id="may" v-model="month">
+                    <label class="btn bg-main" for="may">五月</label>
 
-                        <input type="radio" value="6" id="jun" v-model="month">
-                        <label class="btn bg-main" for="jun">六月</label>
+                    <input type="radio" value="6" id="jun" v-model="month">
+                    <label class="btn bg-main" for="jun">六月</label>
 
-                        <input type="radio" value="7" id="jul" v-model="month">
-                        <label class="btn bg-main" for="jul">七月</label>
+                    <input type="radio" value="7" id="jul" v-model="month">
+                    <label class="btn bg-main" for="jul">七月</label>
 
-                        <input type="radio" value="8" id="aug" v-model="month">
-                        <label class="btn bg-main" for="aug">八月</label>
+                    <input type="radio" value="8" id="aug" v-model="month">
+                    <label class="btn bg-main" for="aug">八月</label>
 
-                        <input type="radio" value="9" id="sep" v-model="month">
-                        <label class="btn bg-main" for="sep">九月</label>
+                    <input type="radio" value="9" id="sep" v-model="month">
+                    <label class="btn bg-main" for="sep">九月</label>
 
-                        <input type="radio" value="10" id="oct" v-model="month">
-                        <label class="btn bg-main" for="oct">十月</label>
+                    <input type="radio" value="10" id="oct" v-model="month">
+                    <label class="btn bg-main" for="oct">十月</label>
 
-                        <input type="radio" value="11" id="nov" v-model="month">
-                        <label class="btn bg-main" for="nov">十一月</label>
+                    <input type="radio" value="11" id="nov" v-model="month">
+                    <label class="btn bg-main" for="nov">十一月</label>
 
-                        <input type="radio" value="12" id="dec" v-model="month">
-                        <label class="btn bg-main" for="dec">十二月</label>                   
+                    <input type="radio" value="12" id="dec" v-model="month">
+                    <label class="btn bg-main" for="dec">十二月</label>
                 </div>
                 <!-- 要怎麼給點選的月份安上active 狀態 
-                把月份用 Vue 的來呈現會比較好嗎? -->
+            把月份用 Vue 的來呈現會比較好嗎? -->
+            </div>
+
+            <main role='main'>
+
+
 
 
                 <!-- 初始狀態 -->
                 <div v-if="filterItem == 0" class="row">
                     <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in seaData" :key="item.id">
-                        <div class="card border-0">
-                            <img :data-src='item.image_uri' class="card-img-top lazyload"
-                                :class="{'bg-donated': item.donated }">
-                            <div class="card-body bg-light p-3">
+                        <div class="card border-0 bg-sec" :class="{'bg-donated': item.donated }">
+                            <img :data-src='item.image_uri' class="card-img-top lazyload">
+                            <div class="card-body bg-light p-3 ">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-center">
@@ -100,6 +109,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row my-3">
                                     <div class="col-6  text-center">
                                         <p v-if='!item["availability"]["isAllYear"]' class="h6">
@@ -126,9 +136,6 @@
                                                 class="fas fa-landmark"></i></a>
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </div>
                     </div>
