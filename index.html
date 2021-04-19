@@ -23,34 +23,41 @@
 
     <div id="app">
         <div class="container">
-            <nav>
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">美術品</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">昆蟲</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">魚類</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sea.html">海洋生物</a>
-                    </li>
-                </ul>
-            </nav>
-            <main role='main'>
-                <!-- 搜尋功能 -->
-                <div class="d-flex justify-content-center">
-                    <input class="my-5 px-3" placeholder="我想找..." type="text" v-model.trim="search">
+            <div class="sticky-top" style="background-color:#f5f5ef;">
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">美術品</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">昆蟲</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" tabindex="-1" aria-disabled="true" href="#">魚類</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sea.html">海洋生物</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- 搜尋bar功能 -->
+                <div class="d-flex justify-content-center  my-5 px-3">
+                    <input placeholder="我想找..." type="text" v-model.trim="search" @keyup.enter.prevent="searchItem()">
+                    <div class="input-group-append">
+                        <button class="btn btn-search" type="button" @click.prevent="searchItem()"><i
+                                class="fas fa-2x fa-search"></i></button>
+                        <button class="btn btn-search" type="button"><i class="far fa-2x fa-times-circle"></i></button>
+                    </div>
                 </div>
+            </div>
+            <main role='main'>
                 <div v-if="filterItem == 0" class="row">
                     <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in artData" :key="item.id">
                         <!-- 卡片開頭 -->
-                        <div class="card border-0">
+                        <div class="card border-0 bg-sec">
                             <img :data-src='item.image_uri' class="card-img-top lazyload"
                                 :class="{'bg-donated': item.donated }">
-                            <div class="card-body bg-light p-3">
+                            <div class="card-body bg-light p-3 d-flex align-items-center justify-content-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-center">
@@ -60,16 +67,16 @@
 
                                     <div class="col-12 mt-2">
                                         <div class="row">
-                                                <!-- 贗品有無 -->
-                                                <div class="col-6  text-center">
-                                                    <i v-if="item.hasFake"
-                                                        class="fas fa-exclamation-triangle text-danger h5"></i>
-                                                </div>
-                                                <div class="col-6 text-center"><a href="#" @click.prevent="donate(item.id)"
-                                                        class="owl" :class="{'text-donated': item.donated}"><i
-                                                            class="fas fa-landmark"></i></a>
-                                                </div>
+                                            <!-- 贗品有無 -->
+                                            <div class="col-6  text-center">
+                                                <i v-if="item.hasFake"
+                                                    class="fas fa-exclamation-triangle text-danger h5"></i>
                                             </div>
+                                            <div class="col-6 text-center"><a href="#" @click.prevent="donate(item.id)"
+                                                    class="owl" :class="{'text-donated': item.donated}"><i
+                                                        class="fas fa-landmark"></i></a>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -78,11 +85,12 @@
                     </div>
                 </div>
                 <div v-if="filterItem != 0" class="row">
-                    <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in filterItem" :key="item.id">
-                        <div class="card border-0">
+                    <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in filterItem"
+                        :key="item.id">
+                        <div class="card border-0  bg-sec">
                             <img :data-src='item.image_uri' class="card-img-top lazyload"
                                 :class="{'bg-donated': item.donated }">
-                            <div class="card-body bg-light p-3">
+                            <div class="card-body bg-light p-3 d-flex align-items-center justify-content-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-center">
@@ -92,16 +100,16 @@
 
                                     <div class="col-12 mt-2">
                                         <div class="row">
-                                                <!-- 贗品有無 -->
-                                                <div class="col-6  text-center">
-                                                    <i v-if="item.hasFake"
-                                                        class="fas fa-exclamation-triangle text-danger h5"></i>
-                                                </div>
-                                                <div class="col-6 text-center"><a href="#" @click.prevent="donate(item.id)"
-                                                        class="owl" :class="{'text-donated': item.donated}"><i
-                                                            class="fas fa-landmark"></i></a>
-                                                </div>
+                                            <!-- 贗品有無 -->
+                                            <div class="col-6  text-center">
+                                                <i v-if="item.hasFake"
+                                                    class="fas fa-exclamation-triangle text-danger h5"></i>
                                             </div>
+                                            <div class="col-6 text-center"><a href="#" @click.prevent="donate(item.id)"
+                                                    class="owl" :class="{'text-donated': item.donated}"><i
+                                                        class="fas fa-landmark"></i></a>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

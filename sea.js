@@ -9,21 +9,22 @@ var app = new Vue({
     data: {
         seaData: [],
         filterItem: [],
+        filterMonth: [],
         seaDonated: [],
         search: '',
-        month:'',
+        month: '',
     },
 
     //搜尋監聽
     watch: {
-        // search: function () {
-        //     this.searchItem();
-            
-        // },
         //seaDonated 一變動 就推資料進去 LS
-        seaDonated: function(){
-            let donatedStr =JSON.stringify(this.seaDonated);
-            localStorage.setItem('seaDonatedList',donatedStr);
+        seaDonated: function () {
+            let donatedStr = JSON.stringify(this.seaDonated);
+            localStorage.setItem('seaDonatedList', donatedStr);
+        },
+        month: function(){
+            let vm =this;
+            vm.monthSearch();
         }
     },
 
@@ -41,29 +42,38 @@ var app = new Vue({
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         },
 
+        monthSearch(){
+            let vm= this;
+            vm.cleanSearch();
+            vm.filterMonth = this.seaData.filter(item=> {
+                //                                                       傳入月份為字串，須轉為NUM
+                if (item["availability"]["month-array-northern"].includes(parseInt(vm.month))) {
+                    return item
+                };
+            });
+            vm.filterItem = vm.filterMonth;
+        },
+
+        cleanSearch() {
+            const vm = this;
+            vm.search = '';
+            vm.filterItem = '';
+        },
+
         // //紀錄捐贈與否
         donate(id) {
             let vm = this;
-            let newIndex =vm.seaData.findIndex((item)=>{
+            let newIndex = vm.seaData.findIndex((item) => {
                 return item.id == id
             })
             vm.seaData[newIndex].donated = !vm.seaData[newIndex].donated;
-            vm.seaDonated=[];
+            vm.seaDonated = [];
             vm.seaData.forEach(
-                (item,newIndex) =>{ 
-                if(item.donated){
-                    vm.seaDonated.push(newIndex)
-                }
-            })
-        },
-
-        getDonated(){
-            let vm = this;
-            vm.seaDonated =JSON.parse(localStorage.getItem('seaDonatedList'));
-            //更新已捐贈物品
-            vm.seaDonated.forEach(
-                item => vm.seaData[item].donated = true
-            );
+                (item, newIndex) => {
+                    if (item.donated) {
+                        vm.seaDonated.push(newIndex)
+                    }
+                })
         },
 
         getSeaData() {
@@ -83,13 +93,22 @@ var app = new Vue({
                     vm.seaData.forEach(
                         item => this.$set(item, 'donated', false)
                     );
-
                     this.getDonated()
                 })
                 .catch(err => {
                     console.log(err);
                 })
-        }
+        },
+
+        //從 LS 取出捐贈紀錄
+        getDonated() {
+            let vm = this;
+            vm.seaDonated = JSON.parse(localStorage.getItem('seaDonatedList'));
+            //更新已捐贈物品
+            vm.seaDonated.forEach(
+                item => vm.seaData[item].donated = true
+            );
+        },
     },
 
     created() {

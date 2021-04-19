@@ -42,11 +42,11 @@
                     </ul>
                 </nav>
                 <!-- 搜尋bar功能 -->
-                <div class="d-flex justify-content-center  my-5 px-3">
+                <div class="d-flex justify-content-center my-3 px-3">
                     <input placeholder="我想找..." type="text" v-model.trim="search" @keyup.enter.prevent="searchItem()">
                     <div class="input-group-append">
                         <button class="btn btn-search" type="button" @click.prevent="searchItem()"><i class="fas fa-2x fa-search"></i></button>
-                        <button class="btn btn-search" type="button"><i class="far fa-2x fa-times-circle"></i></button>
+                        <button class="btn btn-search" type="button" @click.prevent="cleanSearch()"><i class="far fa-2x fa-times-circle"></i></button>
                     </div>
                 </div>
                 <!-- 月份功能 -->
@@ -92,25 +92,18 @@
             </div>
 
             <main role='main'>
-
-
-
-
                 <!-- 初始狀態 -->
                 <div v-if="filterItem == 0" class="row">
                     <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in seaData" :key="item.id">
                         <div class="card border-0 bg-sec" :class="{'bg-donated': item.donated }">
                             <img :data-src='item.image_uri' class="card-img-top lazyload">
-                            <div class="card-body bg-light p-3 ">
+                            <div class="card-body bg-light p-3  d-flex justify-content-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-center">
                                             <h5>{{item["name"]["name-TWzh"]}}</h5>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row my-3">
                                     <div class="col-6  text-center">
                                         <p v-if='!item["availability"]["isAllYear"]' class="h6">
                                             <!-- 出現月份 -->
@@ -125,9 +118,6 @@
                                         </p>
                                         <p v-else class="h6">全天皆有</p>
                                     </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-6 text-center h6">
                                         <p>售價 ${{item["price"]}}</p>
                                     </div>
@@ -140,21 +130,20 @@
                         </div>
                     </div>
                 </div>
+
                 <div v-if="filterItem != 0" class="row">
                     <div class="col-md-4 col my-5 d-flex justify-content-center" v-for="item in filterItem"
                         :key="item.id">
-                        <div class="card border-0">
+                        <div class="card border-0 bg-sec">
                             <img :data-src='item.image_uri' class="card-img-top lazyload"
                                 :class="{'bg-donated': item.donated }">
-                            <div class="card-body bg-light p-3">
+                            <div class="card-body bg-light p-3 d-flex align-items-center justify-content-center">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-center">
                                             <h5>{{item["name"]["name-TWzh"]}}</h5>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row my-3">
                                     <div class="col-6  text-center">
                                         <p v-if='!item["availability"]["isAllYear"]' class="h6">
                                             <!-- 出現月份 -->
@@ -169,9 +158,6 @@
                                         </p>
                                         <p v-else class="h6">全天皆有</p>
                                     </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-6 text-center h6">
                                         <p>售價 ${{item["price"]}}</p>
                                     </div>
@@ -180,9 +166,6 @@
                                                 class="fas fa-landmark"></i></a>
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </div>
                     </div>
